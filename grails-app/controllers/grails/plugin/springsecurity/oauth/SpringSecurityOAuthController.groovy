@@ -129,8 +129,8 @@ class SpringSecurityOAuthController {
             def commandValid = command.validate()
             def User = springSecurityOAuthService.lookupUserClass()
             boolean linked = commandValid && User.withTransaction { status ->
-                //def user = User.findByUsernameAndPassword(command.username, springSecurityService.encodePassword(command.password))
-                def user = User.findByUsername(command.username)
+                String usernameFieldName = SpringSecurityUtils.securityConfig.userLookup.usernamePropertyName
+                def user = User.findWhere((usernameFieldName): command.username)
                 if (user) {
                     user.addToOAuthIDs(provider: oAuthToken.providerName, accessToken: oAuthToken.socialId, user: user)
                     if (user.validate() && user.save()) {
@@ -160,7 +160,7 @@ class SpringSecurityOAuthController {
            authenticationManager.authenticate new UsernamePasswordAuthenticationToken(username, password)
         } catch (AuthenticationException e) {
            valid = false
-        } 
+        }
         return valid
     }
 
@@ -178,7 +178,8 @@ class SpringSecurityOAuthController {
                 boolean created = commandValid && User.withTransaction { status ->
                     def user = springSecurityOAuthService.lookupUserClass().newInstance()
                     //User user = new User(username: command.username, password: command.password1, enabled: true)
-                    user.username = command.username
+                    String usernameFieldName = SpringSecurityUtils.securityConfig.userLookup.usernamePropertyName
+                    user."${usernameFieldName}" = command.username
                     user.password = command.password1
                     user.enabled = true
                     user.addToOAuthIDs(provider: oAuthToken.providerName, accessToken: oAuthToken.socialId, user: user)
