@@ -33,7 +33,7 @@ grails.project.dependency.resolution = {
             export = false
         }
 
-        build ':release:3.0.1', ':rest-client-builder:2.0.3', ':testapps:0.5.0', {
+        build ':release:3.1.1', ':rest-client-builder:2.1.1', ':testapps:0.5.0', {
             export = false
         }
     }
