@@ -2,6 +2,7 @@ grails-spring-security-oauth
 ============================
 
 [![Build Status](https://travis-ci.org/enr/grails-spring-security-oauth.png?branch=master)](https://travis-ci.org/enr/grails-spring-security-oauth)
+[![Analytics](https://ga-beacon.appspot.com/UA-71075299-1/grails-spring-security-oauth/main-page)](https://github.com/igrigorik/ga-beacon)
 
 **Grails 3: https://github.com/enr/s2oauth**
 
